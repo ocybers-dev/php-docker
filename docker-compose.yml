@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  php:
+    build:
+      context: .
+      dockerfile: Dockerfile  # 指定 Dockerfile 文件
+    container_name: php-dev
+    volumes:
+      - ./src:/var/www/html  # 本地代码挂载到容器内的 Apache 目录
+    ports:
+      - "8888:80"  # 映射本地的 8888 端口到容器内的 80 端口
+    environment:
+      - APACHE_DOCUMENT_ROOT=/var/www/html  # 设置 Apache 的根目录
+    networks:
+      - dev_network
+
+  mysql:
+    image: mysql:latest
+    container_name: php-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: php
+      MYSQL_DATABASE: php
+      MYSQL_USER: php
+      MYSQL_PASSWORD: php
+    ports:
+      - "3333:3306"
+    networks:
+      - dev_network
+
+networks:
+  dev_network:
+    driver: bridge

@@ -1,0 +1,9 @@
+# 忽略 Docker 容器产生的文件
+*.log
+*.pid
+docker-compose.override.yml
+
+# 忽略 IDE 和操作系统的临时文件
+.vscode/
+.idea/
+.DS_Store
